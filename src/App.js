@@ -1,6 +1,37 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Confetti from "react-confetti";
 
 function App() {
+  const MessageIcon = () => (
+    <svg
+      ariaLabel="Direct"
+      className="_8-yf5 "
+      color="#262626"
+      fill="#262626"
+      height="24"
+      role="img"
+      viewBox="0 0 24 24"
+      width="24"
+    >
+      <line
+        fill="none"
+        stroke="currentColor"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        x1="22"
+        x2="9.218"
+        y1="3"
+        y2="10.083"
+      ></line>
+      <polygon
+        fill="none"
+        points="11.698 20.334 22 3.001 2 3.001 9.218 10.084 11.698 20.334"
+        stroke="currentColor"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      ></polygon>
+    </svg>
+  );
   const Story = ({
     imagePath,
     description,
@@ -64,13 +95,10 @@ function App() {
   const Home = () => {
     return (
       <main className="mt-5 px-4 overflow-y-auto">
-        <div className="flex">
+        <div className="flex items-center">
           <img src="/profile.png" alt="ufk6er" width="80" height="80" />
           <div className="ml-6">
             <div className="text-2xl">ufk6er</div>
-            <div className="border border-gray-300 rounded-sm font-bold text-xs py-1.5 px-3 tracking-wide text-gray-700 mt-3">
-              Nachricht senden
-            </div>
           </div>
         </div>
         <div className="my-8 text-sm">
@@ -184,13 +212,22 @@ function App() {
   };
   return (
     <Router>
-      <div className="App">
+      <div className="App overflow-x-hidden">
         <header className="py-3.5 flex justify-between border border-b-gray-300 px-4 sticky top-0 bg-white">
           <Link to="/">
             {" "}
-            <img src="/instagram_logo.png" alt="Instagram Logo" width="105" />
+            <img src="/instagram_logo.png" alt="Instagram Logo" width="150" />
           </Link>
-          <img src="/profile.png" alt="ufk6er" width="30" height="auto" />
+
+          <div className="ml-auto flex items-center">
+            <div className="mr-5 relative">
+              <Link to="/text">
+                <div className="absolute w-2 h-2 -top-1 animate-bounce -right-1 bg-red-600 rounded-full"></div>
+                <MessageIcon />
+              </Link>
+            </div>
+            <img src="/profile.png" alt="ufk6er" width="30" height="auto" />
+          </div>
         </header>
 
         <Routes>
@@ -201,6 +238,8 @@ function App() {
                 imagePath="/insta1.png"
                 description="Schweriner Schloss = 9 Frankreich Besuche 😎"
                 location="Landtag Mecklenburg-Vorpommern"
+                commentBy="lischen"
+                commentText="Wow, du hast aber abgenommen!"
               />
             }
           />
@@ -292,6 +331,21 @@ function App() {
                 commentBy="grogu"
                 commentText="Es gibt mehr als nur das Schloss!"
               />
+            }
+          />
+          <Route
+            path="/text"
+            element={
+              <div className="px-4">
+                <Confetti width="500" height={1000} />
+                <div className="text-4xl py-7">🎉</div>
+                <div className="text-lg font-bold mb-3">
+                  Alles Gute zum Geburtstag!{" "}
+                </div>
+                Gemeinsam nach Schwerin vom <strong>01.07. bis 03.07.</strong>{" "}
+                Um die Übernachtung kümmert sich Grogu; den Spaß bringt der Rest
+                der Meute…
+              </div>
             }
           />
           <Route path="/" element={<Home />} />
